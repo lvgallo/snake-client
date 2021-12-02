@@ -10,7 +10,12 @@ const connect = function () {
   conn.on('connect', () => {
     console.log("Successfully connected to game server");
     conn.write(`Name: LVG`)
-  });
+    
+  });     
+  conn.on('connect', () => {
+    console.log('Move up');
+    conn.write('Move: up')
+      }); 
   conn.on('data', (data) => {
     console.log(data);
   });
