@@ -1,6 +1,5 @@
-let connection;
-
-const setupInput = (conn) => {
+// setup interface to handle user input from stdin
+const setupInput = function (conn) {
   connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
@@ -9,21 +8,32 @@ const setupInput = (conn) => {
   stdin.on("data", handleUserInput);
   return stdin;
 };
+// Stores the active TCP connection object.
+let connection;
 
-
-const handleUserInput = ('data', (key) => {
-  // \u0003 maps to ctrl+c input
-  if (key === '\u0003') {
+const handleUserInput = function (key) {
+  if(key === "\u0003"){
+    console.log("BYE BYE!")
     process.exit();
-  } else if (key === 'w') {
-    connection.write('Move: up');
-  } else if (key === 's') {
-    connection.write('Move: down');
-  } else if (key === 'a') {
-    connection.write('Move: left');
-  } else if (key === 'd') {
-    connection.write('Move: right');
+    } 
+    if (key === "w") {
+      console.log('up');
+      connection.write("Move: up");
+    }
+    if (key === "s") {
+      console.log('down');
+      connection.write("Move: down");
+    }
+    if (key === "a") {
+      console.log('left');
+      connection.write("Move: left");
+    } if (key === "d") {
+      console.log('right');
+      connection.write("Move: right");
+    } if (key === "z") {
+      console.log('message');
+      connection.write("Say: Watch out");
   }
-});
+};
 
-module.exports = {setupInput}
+module.exports= { setupInput }

@@ -1,33 +1,28 @@
-const net = require("net");  
+const net = require("net");
 
+// establishes a connection with the game server
 const connect = function () {
   const conn = net.createConnection({
-    host: '165.227.47.243', // IP address here,
+    host: '10.0.2.15', // IP address here,
     port: 50541,// PORT number here,
   });
+  // interpret incoming data as text
   conn.setEncoding("utf8");
   
   conn.on('connect', () => {
-    console.log("Successfully connected to game server");
-    conn.write('Name: LVG')
+    console.log('hello');
+    conn.write('Name: LVG\n');
+    conn.write('Move: up')
     
-  });     
-  //conn.on('connect', () => {
-    //console.log('Move up');
-    //conn.write('Move: up')
-    
-  //}); 
-   
-  conn.on('data', (data) => {
+});
+  conn.on('data', (data)=> {
     console.log(data);
+    conn.end();
   });
-  
-  // interpret incoming data as text
 
   return conn;
 };
 
-console.log("Connecting ...");
-connect();
+
 
 module.exports = {connect}
